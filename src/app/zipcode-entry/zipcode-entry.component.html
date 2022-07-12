@@ -2,7 +2,9 @@
   <h2>Enter a zipcode:</h2>
   <input type="text" #zipcode placeholder="Zipcode" class="form-control">
   <br>
-  <button class="btn btn-primary" (click)="addLocation(zipcode.value)" >
-    Add location
-  </button>
+  <app-stateful-button [status]="status" (statefulButtonClick)="addLocation(zipcode.value)" >
+    <ng-template appTemplate="default">Add location</ng-template>
+    <ng-template appTemplate="started">Adding...</ng-template>
+    <ng-template appTemplate="done"><i class="bi bi-check2-circle"></i> Done</ng-template>
+  </app-stateful-button>
 </div>

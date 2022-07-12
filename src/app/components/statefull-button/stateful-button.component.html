@@ -1,0 +1,15 @@
+<button
+        class="btn btn-primary"
+        [class.done]="status === 'done'"
+        [ngSwitch]="status" (click)="onClick()" [disabled]="status === 'started'">
+    <div *ngSwitchCase="'default'">
+        <ng-container *ngTemplateOutlet="defaultTemplate"></ng-container>
+    </div>
+    <div *ngSwitchCase="'started'">
+        <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+    </div>
+    <div *ngSwitchCase="'done'">
+        <ng-container *ngTemplateOutlet="finishedTemplate"></ng-container>
+    </div>
+</button>
+

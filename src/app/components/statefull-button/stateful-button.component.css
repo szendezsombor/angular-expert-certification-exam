@@ -1,0 +1,14 @@
+.stateful-button {
+    /*background-color: #24a2ff;*/
+    padding: 1rem;
+    border: none;
+    color: white;
+}
+
+.stateful-button:disabled {
+    background-color: rgba(36, 162, 255, 0.5);
+}
+
+.done {
+    background-color: green;
+}

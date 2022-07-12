@@ -14,15 +14,19 @@ import {routing} from "./app.routing";
 import {HttpClientModule} from "@angular/common/http";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {StatefulButtonComponent} from './components/statefull-button/stateful-button.component';
+import {TemplateDirective} from './directives/template.directive';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ZipcodeEntryComponent,
-    ForecastsListComponent,
-    CurrentConditionsComponent,
-    MainPageComponent
-  ],
+    declarations: [
+        AppComponent,
+        ZipcodeEntryComponent,
+        ForecastsListComponent,
+        CurrentConditionsComponent,
+        MainPageComponent,
+        StatefulButtonComponent,
+        TemplateDirective
+    ],
   imports: [
     BrowserModule,
     FormsModule,

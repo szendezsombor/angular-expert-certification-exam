@@ -15,7 +15,6 @@ import {tap} from 'rxjs/operators';
 })
 export class CurrentConditionsComponent implements OnInit, OnDestroy {
 
-  timer$: Observable<number>;
   timerSub: Subscription;
 
   currentConditions$: Observable<CurrentConditionModel[]> = of([])

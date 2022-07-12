@@ -22,15 +22,17 @@ export class CurrentConditionService {
     }
 
     addCurrentCondition$ = (condition: CurrentConditionModel): void => {
-        this._currentConditions$.next([condition, ...this._currentConditions$.getValue()]);
+        const currentConditions: CurrentConditionModel[] = [condition, ...this._currentConditions$.getValue()]
+        this._currentConditions$.next(currentConditions);
+        localStorage.setItem(LOCATIONS, JSON.stringify(currentConditions.map(( condition: CurrentConditionModel) => condition.zip)));
     }
 
     getAllCurrentCondition() {
         let locString = localStorage.getItem(LOCATIONS);
         if (locString) {
-
             const zipcodes: string[] = JSON.parse(locString) as string[];
             const requests: Observable<CurrentConditionModel>[] = zipcodes.map((zipcode: string) => {
+                console.log(zipcode)
                 return this.http.get<CurrentConditionDataModel>(`${CurrentConditionService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${CurrentConditionService.APPID}`)
                     .pipe(map((currentConditionDataModel: CurrentConditionDataModel) => ({ zip: zipcode, data: currentConditionDataModel })))
             });
@@ -42,9 +44,11 @@ export class CurrentConditionService {
 
     }
 
-    addCurrentCondition(zipcode: string): Observable<CurrentConditionModel[]> | any {
-        this.http.get<CurrentConditionDataModel>(`${CurrentConditionService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${CurrentConditionService.APPID}`)
-            .pipe(tap((data: CurrentConditionDataModel) => this.addCurrentCondition$({zip: zipcode, data: data})))
-            .subscribe();
+    addCurrentCondition(zipcode: string): Observable<CurrentConditionModel> {
+        return this.http.get<CurrentConditionDataModel>(`${CurrentConditionService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${CurrentConditionService.APPID}`)
+            .pipe(
+                map((data: CurrentConditionDataModel) =>({ zip: zipcode, data: data })),
+                tap((data: CurrentConditionModel) => this.addCurrentCondition$(data))
+            );
     }
 }
