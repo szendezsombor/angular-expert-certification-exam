@@ -8,7 +8,6 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./forecasts-list.component.css']
 })
 export class ForecastsListComponent {
-
   zipcode: string;
   forecast: any;
 

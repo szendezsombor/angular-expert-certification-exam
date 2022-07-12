@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {HttpClient} from '@angular/common/http';
+import {CurrentConditionModel} from './models/current-condition.model';
+import {tap} from 'rxjs/operators';
+import {CurrentConditionDataModel} from './models/current-condition-data.model';
+import {CurrentConditionService} from './services/current-condition.service';
 
 @Injectable()
 export class WeatherService {
@@ -9,13 +13,13 @@ export class WeatherService {
   static URL = 'http://api.openweathermap.org/data/2.5';
   static APPID = '5a4b2d457ecbef9eb2a71e480b947604';
   static ICON_URL = 'https://raw.githubusercontent.com/udacity/Sunshine-Version-2/sunshine_master/app/src/main/res/drawable-hdpi/';
-  private currentConditions = [];
+  private currentConditions: CurrentConditionModel[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private currentConditionService: CurrentConditionService) { }
 
   addCurrentConditions(zipcode: string): void {
-    // Here we make a request to get the curretn conditions data from the API. Note the use of backticks and an expression to insert the zipcode
-    this.http.get(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`)
+    this.http.get<CurrentConditionDataModel>(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`)
+        .pipe(tap((data: CurrentConditionDataModel) => this.currentConditionService.addCurrentCondition$({zip: zipcode, data: data})))
       .subscribe(data => this.currentConditions.push({zip: zipcode, data: data}) );
   }
 
@@ -26,7 +30,7 @@ export class WeatherService {
     }
   }
 
-  getCurrentConditions(): any[] {
+  getCurrentConditions(): CurrentConditionModel[] {
     return this.currentConditions;
   }
 
