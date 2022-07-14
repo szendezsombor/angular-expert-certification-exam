@@ -14,7 +14,7 @@ export class ForecastsListComponent {
   zipcode: string;
   forecast: ForecastModel;
 
-  constructor(private currentConditionService: CurrentConditionService, private forecastService: ForecastService, private weatherService: WeatherService,private route: ActivatedRoute) {
+  constructor(private currentConditionService: CurrentConditionService, private forecastService: ForecastService, private weatherService: WeatherService, private route: ActivatedRoute) {
     this.currentConditionService.getAllCurrentCondition();
     route.params.subscribe(params => {
       this.zipcode = params['zipcode'];

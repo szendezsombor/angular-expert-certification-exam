@@ -40,7 +40,7 @@ export class CountrySearchComponent {
     }
 
     listCountries(text: string, event: KeyboardEvent) {
-        if (event.key === 'Escape') return;
+        if (event.key === 'Escape') { return; }
         text = text.toLowerCase();
         this.filteredCountries = this.countries.filter((country: CountryModel) => country.name.toLowerCase().includes(text));
     }

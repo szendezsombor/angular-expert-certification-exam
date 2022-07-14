@@ -17,7 +17,7 @@ export class CurrentConditionService {
     }
 
     getAllCurrentCondition(): Observable<CurrentConditionModel[]> {
-        let currentConditions: string = this.currentConditionStore.getCurrentConditionsFromLocalStorage();
+        const currentConditions: string = this.currentConditionStore.getCurrentConditionsFromLocalStorage();
 
         if (currentConditions) {
             const zipAndCountryCodes: Partial<CurrentConditionModel>[] = JSON.parse(currentConditions) as Partial<CurrentConditionModel>[];
