@@ -6,7 +6,7 @@ import {CountryModel} from '../../models/country.model';
     templateUrl: './country-search.component.html',
     styleUrls: ['./country-search.component.css']
 })
-export class CountrySearchComponent {
+export class CountrySearchComponent{
 
     @Output() countryCodeUpdate: EventEmitter<string> = new EventEmitter<string>();
 
@@ -32,22 +32,26 @@ export class CountrySearchComponent {
 
     ];
 
-    filteredCountries: CountryModel[] = [];
+    isFilteredCountriesShown = false;
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onKeydownHandler(_event: KeyboardEvent) {
-        this.filteredCountries = [];
-    }
+    filteredCountries: CountryModel[] = this.countries;
 
     listCountries(text: string, event: KeyboardEvent) {
         if (event.key === 'Escape') { return; }
-        text = text.toLowerCase();
-        this.filteredCountries = this.countries.filter((country: CountryModel) => country.name.toLowerCase().includes(text));
+        this.updateFilteredCountry(text);
+        if (this.filteredCountries.length === 1) this.countryCodeUpdate.emit(this.filteredCountries[0].shortName);
     }
 
     selectCountry(country: CountryModel) {
         this.countryInput.nativeElement.value = country.name;
+        this.updateFilteredCountry(country.name);
+        console.log(this.filteredCountries)
         this.countryCodeUpdate.emit(country.shortName);
-        this.filteredCountries = [];
+        this.isFilteredCountriesShown = false;
+    }
+
+    updateFilteredCountry(countryName: string) {
+        countryName = countryName.toLowerCase();
+        this.filteredCountries = this.countries.filter((country: CountryModel) => country.name.toLowerCase().includes(countryName));
     }
 }
