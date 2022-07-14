@@ -1,5 +1,6 @@
 <div class="well">
-  <h2>Enter a zipcode:</h2>
+  <h2>Enter a country and a zipcode:</h2>
+  <app-country-search (countryCodeUpdate)="onCountryCodeUpdate($event)"></app-country-search>
   <input type="text" #zipcode placeholder="Zipcode" class="form-control">
   <br>
   <app-stateful-button [status]="status" (statefulButtonClick)="addLocation(zipcode.value)" >

@@ -9,9 +9,7 @@ export class TemplateDirective {
 
     @Input('appTemplate') name: string;
 
-    constructor(public template: TemplateRef<any>) {
-    }
-
+    constructor(public template: TemplateRef<any>) {}
 
     getType(): string {
         return this.name;

@@ -8,8 +8,6 @@ import {TemplateDirective} from '../../directives/template.directive';
 })
 export class StatefulButtonComponent implements AfterContentInit {
     @Input() status: 'default' | 'started' | 'done' = 'default';
-    // https://github.com/primefaces/primeng/blob/master/src/app/components/api/shared.ts
-    // https://github.com/primefaces/primeng/blob/master/src/app/components/card/card.ts
 
     @Output() statefulButtonClick: EventEmitter<void> = new EventEmitter<void>();
 

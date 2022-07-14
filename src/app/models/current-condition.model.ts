@@ -1,6 +1,7 @@
 import {CurrentConditionDataModel} from './current-condition-data.model';
 
 export interface CurrentConditionModel {
-    zip: string;
+    zipcode: string;
+    country: string;
     data: CurrentConditionDataModel;
 }

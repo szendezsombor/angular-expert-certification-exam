@@ -1,0 +1,13 @@
+<div class="form-group country-search">
+    <input
+            class="form-control"
+            type="text"
+            (keyup)="listCountries(country.value, $event)"
+            placeholder="Enter country name"
+            #country>
+    <ul class="country-list" *ngIf="filteredCountries.length > 0">
+        <li *ngFor="let filteredCountry of filteredCountries" (click)="selectCountry(filteredCountry)">
+            <p [innerHTML]="filteredCountry.name | appBoldPartPipe: country.value"></p>
+        </li>
+    </ul>
+</div>

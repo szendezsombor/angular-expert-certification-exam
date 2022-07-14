@@ -1,0 +1,21 @@
+<div>
+  <div *ngFor="let currentCondition of (this.currentConditions$ | async)" class="well flex">
+    <div>
+      <h3>{{currentCondition.data.name}} ({{currentCondition.zipcode}})</h3>
+      <h4>Current conditions: {{currentCondition.data.weather[0].main}}</h4>
+      <h4>Temperatures today:</h4>
+      <p>
+        Current {{currentCondition.data.main.temp | number:'.0-0'}}
+        - Max {{currentCondition.data.main.temp_max | number:'.0-0'}}
+        - Min {{currentCondition.data.main.temp_min | number:'.0-0'}}
+      </p>
+      <p>
+        <a [routerLink]="['/forecast', currentCondition.zipcode]" >Show 5-day forecast for {{currentCondition.data.name}}</a>
+      </p>
+    </div>
+    <div>
+      <span class="close" (click)="currentConditionService.removeCurrentCondition(currentCondition.zipcode)">&times;</span>
+      <img [src]="weatherService.getWeatherIcon(currentCondition.data.weather[0].id)">
+    </div>
+ </div>
+</div>

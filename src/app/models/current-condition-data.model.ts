@@ -1,4 +1,5 @@
 export interface CurrentConditionDataModel {
+    name: string;
     main: {
         feels_like: number;
         humidity: number;
@@ -7,7 +8,7 @@ export interface CurrentConditionDataModel {
         temp_max: number;
         temp_min: number;
     };
-    wather: {
+    weather: {
         description: string;
         icon: string;
         id: number;
